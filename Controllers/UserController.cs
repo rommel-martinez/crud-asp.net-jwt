@@ -50,6 +50,14 @@ public class UserController : ControllerBase
     [HttpGet]
     public async Task<List<UserModel>> GetAll()
     {
+        var jwt = Request.Cookies["jwt"];
+        var token = _JwtServices.Verify(jwt);
+        int userId = int.Parse(token.Issuer);
+
+        Console.WriteLine("AAA");
+        Console.WriteLine(userId);
+        Console.WriteLine("AAA");
+
         return await _IUser.GetAll();
     }
 
